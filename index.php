@@ -171,8 +171,6 @@ session_start();
     </ul>
 </div>
 
-
-<script type="text/javascript" src="js/script.js"></script>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- Compiled and minified JavaScript -->
