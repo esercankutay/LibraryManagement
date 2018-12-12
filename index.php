@@ -1,5 +1,25 @@
 <?php
 session_start();
+
+/*$statement = $pdo->query('select * from musteri');
+while ($row)*/
+
+/*$host = 'localhost';
+$user = 'cankutay_user';
+$dbname = 'cankutay_odev';
+$password = '*-123qweasd*-';
+$dsn = 'mysql:host='.$host.';dbname='.$dbname;
+$pdo = new PDO($dsn,$user,$password);
+if ($pdo!=null) {
+    echo "<h2 class=\"blue\" >Bağlantı Başarılı!</h2>";
+} else {
+
+    echo "<h2 class=\"blue\" >Bağlantı Başarısız!</h2>";
+}
+if(isset($_POST['kit-submit'])){
+    $sql = 'insert into kitap values(:kit_id,:yazar_id,:kit_adi,:isbn,:yayinevi,:baski_no,:basim_yili,:dil,:cilt,:sayfa,:rafyeri,:kategori,:durum)';
+}*/
+
 ?>
 <!DOCTYPE html>
 <html lang="tr">
@@ -17,6 +37,7 @@ session_start();
 </head>
 
 <body>
+
 <!-- Logo,Slogan and Input -->
 <section id="topbar" class="light-blue accent-4">
     <div class="container center-align" id="topbarcontent">
@@ -28,6 +49,14 @@ session_start();
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="keyword" type="search" class="white black-text" placeholder="Ne aramak istersin?">
+                    </div>
+                    <div class="col s12">
+                        <select>
+                            <option value="book" selected>Kitaplarda</option>
+                            <option value="user">Kullanıcılarda</option>
+                            <option value="author">Yazarlarda</option>
+                            <option value="borrow">Odünç listesinde</option>
+                        </select>
                     </div>
                 </div>
             </form>
@@ -58,11 +87,14 @@ session_start();
             <div style="height: 120px">
 
             </div>
+            <input type="submit" class="hide" id="odunc-submit">
+            <input type="reset" class="hide" id="odunc-reset">
         </form>
+
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat left">Kaydet</a>
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Vazgeç</a>
+        <label for="odunc-submit" class="btn light-blue accent-4 left" >Kaydet</label>
+        <label for="odunc-reset" class="btn light-blue accent-4">Temizle</label>
     </div>
 </div>
 
@@ -70,61 +102,64 @@ session_start();
 <div id="modal-kit" class="modal">
     <div class="modal-content">
         <h3 class="heading">Kitap ekle</h3>
-        <form action="index.php">
+        <form action="index.php" method="post" name="kitapekle">
             <div class="row">
                 <div class="col s6">
-                    <input type="text" placeholder="Kitap adı">
+                    <input type="text" placeholder="Kitap adı" name="kad">
                 </div>
                 <div class="col s6">
-                    <input type="number" placeholder="Yazar No">
+                    <input type="number" placeholder="Yazar No" name="yad">
                 </div>
             </div>
             <div class="row">
                 <div class="col s6">
-                    <input type="number" placeholder="ISBN">
+                    <input type="number" placeholder="ISBN" name="isbn">
                 </div>
                 <div class="col s6">
-                    <input type="text" placeholder="Yayınevi">
+                    <input type="text" placeholder="Yayınevi" name="yevi">
                 </div>
             </div>
             <div class="row">
                 <div class="col s6">
-                    <input type="number" placeholder="Basım yılı">
+                    <input type="number" placeholder="Basım yılı" name="byil">
                 </div>
                 <div class="col s6">
-                    <input type="number" placeholder="Baskı No">
+                    <input type="number" placeholder="Baskı No" name="bno">
                 </div>
             </div>
             <div class="row">
                 <div class="col s6">
-                    <input type="text" placeholder="Dil">
+                    <input type="text" placeholder="Dil" name="dil">
                 </div>
                 <div class="col s6">
-                    <input type="text" placeholder="Cilt">
+                    <input type="text" placeholder="Cilt" name="cilt">
                 </div>
             </div>
             <div class="row">
                 <div class="col s6">
-                    <input type="number" placeholder="Sayfa">
+                    <input type="number" placeholder="Sayfa" name="sayfa">
                 </div>
                 <div class="col s6">
-                    <input type="text" placeholder="Raf Yeri">
+                    <input type="text" placeholder="Raf Yeri" name="rafyer">
                 </div>
             </div>
             <div class="row">
                 <div class="col s6">
-                    <input type="text" placeholder="Kategori">
+                    <input type="text" placeholder="Kategori" name="kateg">
                 </div>
                 <div class="col s6">
-                    <input type="number" placeholder="Durum">
+                    <input type="number" placeholder="Durum" name="durum">
                 </div>
             </div>
+            <input type="submit" class="hide" id="kit-submit">
+            <input type="reset" class="hide" id="kit-reset">
         </form>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat left">Kaydet</a>
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Vazgeç</a>
+        <label for="kit-submit" class="btn light-blue accent-4 left" >Kaydet</label>
+        <label for="kit-reset" class="btn light-blue accent-4">Temizle</label>
     </div>
+
 </div>
 
 
@@ -146,11 +181,13 @@ session_start();
                     <input type="text" placeholder="Soyad">
                 </div>
             </div>
+            <input type="submit" class="hide" id="yaz-submit">
+            <input type="reset" class="hide" id="yaz-reset">
         </form>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat left">Kaydet</a>
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Vazgeç</a>
+        <label for="yaz-submit" class="btn light-blue accent-4 left" >Kaydet</label>
+        <label for="yaz-reset" class="btn light-blue accent-4">Temizle</label>
     </div>
 </div>
 
@@ -175,12 +212,14 @@ session_start();
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<!-- Custom Javascript -->
+<script type="text/javascript" src="javascript/javascript.js"></script>
 <script>
     $(document).ready(function () {
         $('.fixed-action-btn').floatingActionButton();
         $('.dropdown-trigger').dropdown();
         $('.tooltipped').tooltip();
-        $('.modal').modal();
+        $('.modal').modal({classes: 'rounded'});
         $('.datepicker').datepicker({
             format: 'yyyy-mm-dd'
         });
