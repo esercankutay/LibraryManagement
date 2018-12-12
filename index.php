@@ -1,24 +1,24 @@
 <?php
 session_start();
 
-/*$statement = $pdo->query('select * from musteri');
-while ($row)*/
-
-/*$host = 'localhost';
+$host = 'localhost';
 $user = 'cankutay_user';
 $dbname = 'cankutay_odev';
 $password = '*-123qweasd*-';
 $dsn = 'mysql:host='.$host.';dbname='.$dbname;
 $pdo = new PDO($dsn,$user,$password);
-if ($pdo!=null) {
-    echo "<h2 class=\"blue\" >Bağlantı Başarılı!</h2>";
-} else {
 
-    echo "<h2 class=\"blue\" >Bağlantı Başarısız!</h2>";
-}
 if(isset($_POST['kit-submit'])){
-    $sql = 'insert into kitap values(:kit_id,:yazar_id,:kit_adi,:isbn,:yayinevi,:baski_no,:basim_yili,:dil,:cilt,:sayfa,:rafyeri,:kategori,:durum)';
-}*/
+    try{
+        $sql = $pdo->query('insert into kitap values(:yazar_id,:kit_adi,:isbn,:yayinevi,:baski_no,:basim_yili,:dil,:cilt,:sayfa,:rafyeri,:kategori,:durum)');
+        $stmt = $pdo->prepare($sql);
+        $stmt->exec(array(':yazar_id'=>$_POST['yad'],':kit_adi'=>$_POST['kad'],':isbn'=>$_POST['isbn'],':yayinevi'=>$_POST['yevi'],':baski_no'=>$_POST['bno'],':basim_yili'=>$_POST['byil'],':dil'=>$_POST['dil'],':cilt'=>$_POST['cilt'],':sayfa'=>$_POST['sayfa'],':rafyeri'=>$_POST['rafyer'],':kategori'=>$_POST['kateg'],':durum'=>$_POST['durum']));
+    }
+    catch (PDOException $e){
+        $e->getMessage();
+    }
+}
+if (isset($_POST['']))
 
 ?>
 <!DOCTYPE html>
@@ -108,7 +108,7 @@ if(isset($_POST['kit-submit'])){
                     <input type="text" placeholder="Kitap adı" name="kad">
                 </div>
                 <div class="col s6">
-                    <input type="number" placeholder="Yazar No" name="yad">
+                    <input class="modal-trigger" type="number" data-target="modal-yaz" placeholder="Yazar No" name="yad">
                 </div>
             </div>
             <div class="row">
