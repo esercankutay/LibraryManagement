@@ -1,56 +1,15 @@
-#topbar{
-    position: absolute;
-    width: 100%;
-    align-content: center;
-    height: 450px;
-    z-index: 10;
-
-}
-
-#mainlogo{
-    position: relative;
-    width: 250px;
-    height: 250px;
-    margin-left: 30%;
-    margin-right: 30%;
-    z-index: 11;
-}
-input[type=search]:not(.browser-default){
-    width: 40%;
-    margin-left: 30%;
-    margin-right: 30%;
-
-}
-.main-selector{
-    
-    position: relative;
-    z-index: 10;
-    height: 30px;
-    width: fit-content;
-    height: fit-content;
-    top: 480px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: gray;
-}
-.search-cats{
-    margin-bottom: auto;
-    margin-top: auto;
-    cursor: pointer;
-    text-align: center;
-}
-#keyword{
-    padding-left: 15px;
-}
-.vl{
-    border-left: 1px solid grey;
-    height: 500px;
-    position: absolute;
-    left: 50%;
-    margin-left: -3px;
+header{
     top: 0;
+    padding-right: 0;
+    margin: 0;
+    background-color: #0091ea;
 }
-#search-select{
-    position: relative;
-    z-index: 12;
+#book{
+    width: 16%;
+    margin-right: 42%;
+    margin-left: 42%;
+}
+::placeholder{
+    color: black;
+    padding-left: 5px;
 }

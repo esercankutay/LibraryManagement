@@ -5,20 +5,35 @@ $host = 'localhost';
 $user = 'cankutay_user';
 $dbname = 'cankutay_odev';
 $password = '*-123qweasd*-';
-$dsn = 'mysql:host='.$host.';dbname='.$dbname;
-$pdo = new PDO($dsn,$user,$password);
-
+$charset = 'utf8mb4_turkish_ci';
+$dsn = "mysql:host=$host;dbname=$dbname";
+$pdo = new PDO($dsn, $user, $password);
 if(isset($_POST['kit-submit'])){
+
+    kitapekle($_POST['kit_adi'],$_POST['isbn'],$_POST['baski_no'],$_POST['basim_yili'],$_POST['dil'],$_POST['cilt'],$_POST['sayfa'],$_POST['kategori']);
+    $durum='rafta';
+    echo durum;
     try{
-        $sql = $pdo->query('insert into kitap values(:yazar_id,:kit_adi,:isbn,:yayinevi,:baski_no,:basim_yili,:dil,:cilt,:sayfa,:rafyeri,:kategori,:durum)');
-        $stmt = $pdo->prepare($sql);
-        $stmt->exec(array(':yazar_id'=>$_POST['yad'],':kit_adi'=>$_POST['kad'],':isbn'=>$_POST['isbn'],':yayinevi'=>$_POST['yevi'],':baski_no'=>$_POST['bno'],':basim_yili'=>$_POST['byil'],':dil'=>$_POST['dil'],':cilt'=>$_POST['cilt'],':sayfa'=>$_POST['sayfa'],':rafyeri'=>$_POST['rafyer'],':kategori'=>$_POST['kateg'],':durum'=>$_POST['durum']));
+        $sql = $this->pdo->query('insert into kitap (kit_adi, isbn, baski_no, basim_yili,dil,cilt,sayfa,kategori,durum) values(:kit_adi,:isbn,:baski_no,:basim_yili,:dil,:cilt,:sayfa,:kategori,:durum)');
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':kit_adi', $kit_id);$stmt->bindParam(':isbn', $isbn);$stmt->bindParam(':baski_no', $baski_no);
+        $stmt->bindParam(':basim_yili', $basim_yili);$stmt->bindParam(':dil', $dil);$stmt->bindParam(':cilt', $cilt);
+        $stmt->bindParam(':sayfa', $sayfa);$stmt->bindParam(':kategori', $kategori);$stmt->bindParam(':durum', $durum);
+        $stmt->execute($kit_id,$isbn,$baski_no,$basim_yili,$dil,$cilt,$sayfa,$kategori,$durum);
+        echo "Kitap eklendi!";
     }
     catch (PDOException $e){
-        $e->getMessage();
+        $e->getMessage($kit_id,$isbn,$baski_no,$basim_yili,$dil,$cilt,$sayfa,$kategori,$durum);
     }
 }
-if (isset($_POST['']))
+
+$stmt = $pdo->query('SELECT * FROM kitap');
+while ($row = $stmt->fetch())
+{
+    echo $row['kit_adi'] . "\n";
+}
+
+
 
 ?>
 <!DOCTYPE html>
@@ -37,34 +52,29 @@ if (isset($_POST['']))
 </head>
 
 <body>
-
 <!-- Logo,Slogan and Input -->
-<section id="topbar" class="light-blue accent-4">
-    <div class="container center-align" id="topbarcontent">
-        <img id="mainlogo" src="asset/book.svg" alt="Library Logo">
-        <h3 class="white-text">Kütüphanenizi kolayca yönetin!</h3>
-        <!-- Search Form -->
-        <div class="row">
-            <form class="col m12">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="keyword" type="search" class="white black-text" placeholder="Ne aramak istersin?">
-                    </div>
-                    <div class="col s12">
-                        <select>
-                            <option value="book" selected>Kitaplarda</option>
-                            <option value="user">Kullanıcılarda</option>
-                            <option value="author">Yazarlarda</option>
-                            <option value="borrow">Odünç listesinde</option>
-                        </select>
-                    </div>
-                </div>
+<header>
+    <div class="row s1 l2 center">
+        <img id="book" class="responsive-img center" src="asset/book.svg" alt="book svg">
+        <h3 class="center white-text">Kütüphanenizi kolayca yönetin!</h3>
+    </div>
+    <div class="row">
+        <div class="col s2 m3 l4"></div>
+        <div class="col s4 m6 l4">
+            <form action="index.php" method="post">
+                <input class="white black-text" type="search" placeholder="Ne aramak istersin?">
             </form>
         </div>
+        <div class="col s2 m3 l2 ">
+            <select>
+                <option value="book" selected>Kitaplarda</option>
+                <option value="user">Kullanıcılarda</option>
+                <option value="author">Yazarlarda</option>
+                <option value="borrow">Odünç listesinde</option>
+            </select>
+        </div>
     </div>
-</section>
-
-
+</header>
 
 <!-- Modal Odunc Ver -->
 <div id="modal-odunc" class="modal">
@@ -105,26 +115,18 @@ if (isset($_POST['']))
         <form action="index.php" method="post" name="kitapekle">
             <div class="row">
                 <div class="col s6">
-                    <input type="text" placeholder="Kitap adı" name="kad">
+                    <input type="text" placeholder="Kitap adı" name="kit_adi">
                 </div>
                 <div class="col s6">
-                    <input class="modal-trigger" type="number" data-target="modal-yaz" placeholder="Yazar No" name="yad">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s6">
-                    <input type="number" placeholder="ISBN" name="isbn">
-                </div>
-                <div class="col s6">
-                    <input type="text" placeholder="Yayınevi" name="yevi">
+                    <input type="text" placeholder="ISBN" name="isbn">
                 </div>
             </div>
             <div class="row">
                 <div class="col s6">
-                    <input type="number" placeholder="Basım yılı" name="byil">
+                    <input type="number" placeholder="Baskı" name="baski_no">
                 </div>
                 <div class="col s6">
-                    <input type="number" placeholder="Baskı No" name="bno">
+                    <input type="number" placeholder="Basım yılı" name="basim_yili">
                 </div>
             </div>
             <div class="row">
@@ -140,15 +142,7 @@ if (isset($_POST['']))
                     <input type="number" placeholder="Sayfa" name="sayfa">
                 </div>
                 <div class="col s6">
-                    <input type="text" placeholder="Raf Yeri" name="rafyer">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s6">
-                    <input type="text" placeholder="Kategori" name="kateg">
-                </div>
-                <div class="col s6">
-                    <input type="number" placeholder="Durum" name="durum">
+                    <input type="text" placeholder="Kategori" name="kategori">
                 </div>
             </div>
             <input type="submit" class="hide" id="kit-submit">
@@ -190,6 +184,19 @@ if (isset($_POST['']))
         <label for="yaz-reset" class="btn light-blue accent-4">Temizle</label>
     </div>
 </div>
+<div class="row">
+    <div class="col s1 m2 l2"></div>
+    <div class="col s10 m8 l8 xl8 offset s1-m2-l2-xl2">
+        <ul class="collection with-header">
+            <li class="collection-header"><h4>Kitaplar</h4></li>
+            <li class="collection-item">Alvin</li>
+            <li class="collection-item">Alvin</li>
+            <li class="collection-item">Alvin</li>
+            <li class="collection-item">Alvin</li>
+        </ul>
+    </div>
+
+</div>
 
 
 <!-- Floating action button(Add record) -->
@@ -212,8 +219,6 @@ if (isset($_POST['']))
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<!-- Custom Javascript -->
-<script type="text/javascript" src="javascript/javascript.js"></script>
 <script>
     $(document).ready(function () {
         $('.fixed-action-btn').floatingActionButton();
@@ -222,6 +227,9 @@ if (isset($_POST['']))
         $('.modal').modal({classes: 'rounded'});
         $('.datepicker').datepicker({
             format: 'yyyy-mm-dd'
+        });
+        $('select').formSelect({
+            classes: 'white darken-1 white-text '
         });
     });
 </script>
