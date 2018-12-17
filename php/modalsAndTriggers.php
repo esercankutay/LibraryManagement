@@ -2,31 +2,42 @@
 <div id="modal-odunc" class="modal">
     <div class="modal-content">
         <h3>Odünç ver</h3>
-        <form action="index.php">
+        <form action="index.php" method="post">
             <div class="row">
                 <div class="col s6">
-                    <input type="text" placeholder="Kullanıcı adı">
+                    <input type="text" placeholder="Kullanıcı adı" name="odunc_kul_adi">
                 </div>
                 <div class="col s6">
-                    <input type="text" placeholder="Kitap Numarası">
+                    <input type="text" placeholder="Kitap Numarası" name="odunc_kit_id">
                 </div>
             </div>
-            <div class="row">
-                <div class="col s12">
-                    <input type="text" placeholder="Tarih" class="datepicker">
-                </div>
-            </div>
-            <div style="height: 120px">
-
-            </div>
-            <input type="submit" class="hide" id="odunc-submit">
+            <input type="submit" class="hide" id="odunc-submit" name="odunc-submit">
             <input type="reset" class="hide" id="odunc-reset">
         </form>
-
     </div>
     <div class="modal-footer">
-        <label for=""odunc-submit" class=btn light-blue accent-4 left" >Kaydet</label>
-        <label for="odunc-reset" class="btn light-blue accent-4">Temizle</label>
+        <label for="odunc-submit" class="btn light-blue accent-4 left" >Kaydet</label>
+        <label for="odunc-reset" class="btn red accent-4">Temizle</label>
+    </div>
+</div>
+
+<!-- İade al-->
+<div id="iade-al" class="modal">
+    <div class="modal-content">
+        <h3>İade al</h3>
+        <form action="index.php" method="post">
+            <div class="row">
+                <div class="col s12">
+                    <input type="text" placeholder="Kullanıcı adı" name="iade-kul-adi">
+                </div>
+            </div>
+            <input type="submit" class="hide" id="iade-submit" name="iade-submit">
+            <input type="reset" class="hide" id="iade-al">
+        </form>
+    </div>
+    <div class="modal-footer">
+        <label for="iade-submit" class="btn light-blue accent-4 left" >Kaydet</label>
+        <label for="iade-al" class="btn red accent-4">Temizle</label>
     </div>
 </div>
 
@@ -73,37 +84,7 @@
     </div>
     <div class="modal-footer">
         <label for="kit-submit" class="btn light-blue accent-4 left" >Kaydet</label>
-        <label for="kit-reset" class="btn light-blue accent-4">Temizle</label>
-    </div>
-
-</div>
-
-
-<!-- Modal Yazar Ekle -->
-<div id="modal-yaz" class="modal">
-    <div class="modal-content">
-        <h3>Yazar ekle</h3>
-        <form action="index.php">
-            <div class="row">
-                <div class="col s12">
-                    <input type="text" placeholder="Yazar No">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s6">
-                    <input type="text" placeholder="Ad">
-                </div>
-                <div class="col s6">
-                    <input type="text" placeholder="Soyad">
-                </div>
-            </div>
-            <input type="submit" class="hide" id="yaz-submit">
-            <input type="reset" class="hide" id="yaz-reset">
-        </form>
-    </div>
-    <div class="modal-footer">
-        <label for="yaz-submit" class="btn light-blue accent-4 left" >Kaydet</label>
-        <label for="yaz-reset" class="btn light-blue accent-4">Temizle</label>
+        <label for="kit-reset" class="btn red accent-4">Temizle</label>
     </div>
 </div>
 
@@ -113,14 +94,12 @@
         <i class="large material-icons">add</i>
     </a>
     <ul>
+        <li><a class="btn modal-trigger tooltipped btn-floating light-blue accent-4 white-text" data-target="iade-al"
+               data-position="left" data-tooltip="İade al"><i class="material-icons">low_priority</i></i></a></li>
         <li><a class="btn modal-trigger tooltipped btn-floating light-blue accent-4 white-text"
-               data-target="modal-odunc" data-position="left" data-tooltip="Kullanıcı Listesi"><i class="material-icons">list</i></a>
-        <li><a class="btn modal-trigger tooltipped btn-floating light-blue accent-4 white-text"
-               data-target="modal-odunc" data-position="left" data-tooltip="Odunc ver"><i class="material-icons">control_point</i></a>
+               data-target="modal-odunc" data-position="left" data-tooltip="Odunc ver"><i class="material-icons">redo</i></a>
         </li>
         <li><a class="btn modal-trigger tooltipped btn-floating light-blue accent-4 white-text" data-target="modal-kit"
                data-position="left" data-tooltip="Kitap ekle"><i class="material-icons">library_books</i></a></li>
-        <li><a class="btn modal-trigger tooltipped btn-floating light-blue accent-4 white-text" data-target="modal-yaz"
-               data-position="left" data-tooltip="Yazar ekle"><i class="material-icons">person_add</i></i></a></li>
     </ul>
 </div>
