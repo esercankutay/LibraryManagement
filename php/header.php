@@ -31,7 +31,6 @@
                 <select name="selectmain" >
                     <option value="kitap" selected>Kitaplarda</option>
                     <option value="kullanici">Kullanıcılarda</option>
-                    <option value="odunc">Ödünçlerde</option>
                 </select>
             </div>
         </form>
