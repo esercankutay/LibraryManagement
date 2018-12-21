@@ -22,7 +22,7 @@ if (isset($_SESSION['kul_adi'])){
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-<body>
+<body class="light-blue accent-4">
 <div class="row" >
     <div class="col s4 m4 l4"></div>
     <div class="col s4 m4 l4 card-panel " style="margin-top: 300px">
