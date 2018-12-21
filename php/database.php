@@ -3,13 +3,33 @@ $dsn = 'mysql:host=localhost;dbname=cankutay_odev;charset=utf8;';
 $username = 'cankutay_user';
 $password = '*-123qweasd*-';
 $options = [];
-$result;
 try {
     $connection = new PDO($dsn, $username, $password, $options);
 } catch(PDOException $e) {
     echo 'Connection failed! Check database status!';
 }
 
+$sql = <<<sql
+select * from kul_kat;
+sql;
+$stmt = $connection->query($sql);
+$kat = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+if (isset($_POST['login-submit'])){
+    $sql = <<<sql
+select kul_adi,parola from kullanici where kul_adi='{$_POST['loginname']}' and parola = '{$_POST['loginpass']}'
+sql;
+    $stmt = $connection->query($sql);
+    $login = $stmt->fetch(PDO::FETCH_OBJ);
+    if ($login){
+        $_SESSION['kul_adi'] = $login->kul_adi;
+        header("Location:./index.php");
+    }
+}
+if (isset($_POST['logout'])){
+    session_unset();
+    session_destroy();
+}
 
 if (isset($_POST['selectmain'])){
     if($_POST['selectmain']=='kullanici'){$cname='tc';
@@ -121,9 +141,11 @@ sql;
     $result = $stmt->fetchAll(PDO::FETCH_OBJ);
 }
 
-if (isset($_GET['kit_adi'])){
-
-}
-if (isset($_GET['kul_adi'])){
-
+if (isset($_GET['kul_adi'])&&isset($_GET['kit_id'])&&isset($_GET['alma_tar'])){
+    $sql = <<<sql
+update kitap
+set iade_tar='now'
+where kul_adi = '{$_GET['kul_adi']}' and kit_id = {$_GET['kit_id']} and alma_tar = '{$_GET['alma_tar']}'
+sql;
+    $connection->query($sql);
 }

@@ -1,3 +1,4 @@
+<script>$('#kullanici-ekle').modal('open');</script>
 <?php if (isset($_POST['selectmain'])): ?>
 <table class="striped">
     <thead>
@@ -93,6 +94,7 @@
             <td>Kitap ID</td>
             <td>Alma Tarihi</td>
             <td>Ceza</td>
+            <td>Eylem</td>
         </tr>
         </thead>
         <tbody>
@@ -113,74 +115,10 @@
                     echo '<td>' . ($gun-7) . '₺</td>';
 
                 ?>
+                <td> <a onclick="" href="index.php?kul_adi=<?= $item->kul_adi  ?>&kit_id=<?= $item->kit_id  ?>&alma_tar=<?= $item->alma_tar  ?>" class="btn light-blue accent-4"><i class="material-icons">checked</i></a></td>
 
             </tr>
         <?php endforeach; ?>
         </tbody>
     </table>
-<?php endif; ?>
-
-<?php if (isset($_GET['kit_id'])):
-    $sql = <<<sql
-select * from kitap where kit_id = {$_GET['kit_id']}
-sql;
-    ?>
-    <!-- Modal Kitap Ekle -->
-    <div id="duz-kit" class="modal">
-        <div class="modal-content">
-            <h3 class="heading">Kitabı ekle</h3>
-            <form action="index.php" method="post" name="kitapekle">
-                <div class="row">
-                    <div class="col s6">
-                        <input type="text" placeholder="Kitap adı" name="kit_adi">
-                    </div>
-                    <div class="col s6">
-                        <input type="text" placeholder="Yazar" name="kit_yazar">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s6">
-                        <input type="text" placeholder="Yayınevi" name="kit_yevi">
-                    </div>
-                    <div class="col s6">
-                        <input type="text" placeholder="ISBN" name="isbn">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s6">
-                        <input type="number" placeholder="Baskı" name="baski_no">
-                    </div>
-                    <div class="col s6">
-                        <input type="number" placeholder="Basım yılı" name="basim_yili">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s6">
-                        <input type="text" placeholder="Dil" name="dil">
-                    </div>
-                    <div class="col s6">
-                        <input type="text" placeholder="Cilt" name="cilt">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s6">
-                        <input type="number" placeholder="Sayfa" name="sayfa">
-                    </div>
-                    <div class="col s6">
-                        <input type="text" placeholder="Kategori" name="kategori">
-                    </div>
-                </div>
-                <input type="submit" class="hide" id="kit-submit" name="kit-submit">
-                <input type="reset" class="hide" id="kit-reset">
-            </form>
-        </div>
-        <div class="modal-footer">
-            <label for="kit-submit" class="btn light-blue accent-4 left" >Kaydet</label>
-            <label for="kit-reset" class="btn red accent-4">Temizle</label>
-        </div>
-    </div>
-<?php endif; ?>
-
-<?php if (isset($_GET['kul_adi'])): ?>
-
 <?php endif; ?>

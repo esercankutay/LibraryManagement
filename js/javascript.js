@@ -5,6 +5,7 @@ $(document).ready(function () {
     $('.tooltipped').tooltip();
     $('.modal').modal({classes: 'rounded'});
     $('.dropdown-trigger').dropdown();
+    $('.sidenav').sidenav();
     $('select').formSelect({
         classes: 'white darken-1 white-text '
     });
