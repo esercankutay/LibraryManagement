@@ -1,6 +1,4 @@
-<script>$('#kullanici-ekle').modal('open');</script>
-<?php if (isset($_POST['selectmain'])): ?>
-<table class="striped">
+<table class="highlight responsive-table">
     <thead>
     <?php if (!isset($_POST['selectmain']) || $_POST['selectmain'] == 'kitap'): ?>
         <tr>
@@ -33,7 +31,7 @@
     <?php endif; ?>
     </thead>
     <tbody>
-    <?php if (!isset($_POST['selectmain']) || $_POST['selectmain'] == 'kitap'): ?>
+    <?php if (!isset($_POST['selectmain'])||$_POST['selectmain'] == 'kitap'): ?>
         <?php foreach ($result as $item): ?>
             <tr>
                 <td class="hide"><?= $item->kit_id; ?></td>
@@ -75,7 +73,7 @@
                 <td><?= $item->tel; ?></td>
                 </td>
                 <td>
-                <a onclick="" href="index.php?kul_adi=<?= $item->kul_adi  ?>" class="btn light-blue accent-4"><i class="material-icons">edit</i></a>
+                <a onclick="update(<?= $item->kul_adi  ?>)" href="" class="btn light-blue accent-4"><i class="material-icons">edit</i></a>
                 <a onclick="return confirm('Silmek istediğine emin misin?')" href="php/delete.php?kul_adi=<?= $item->kul_adi  ?>" class='btn red'><i class="material-icons red">delete</i></a>
                 </td>
             </tr>
@@ -83,8 +81,6 @@
     <?php endif; ?>
     </tbody>
 </table>
-<?php endif; ?>
-
 <?php if (isset($_POST['iade-submit'])): ?>
     <table>
         <thead>
@@ -115,7 +111,7 @@
                     echo '<td>' . ($gun-7) . '₺</td>';
 
                 ?>
-                <td> <a onclick="" href="index.php?kul_adi=<?= $item->kul_adi  ?>&kit_id=<?= $item->kit_id  ?>&alma_tar=<?= $item->alma_tar  ?>" class="btn light-blue accent-4"><i class="material-icons">checked</i></a></td>
+                <td> <a style="width: 50px;" onclick="" href="index.php?kul_adi=<?= $item->kul_adi  ?>&kit_id=<?= $item->kit_id  ?>&alma_tar=<?= $item->alma_tar  ?>" class="btn light-blue accent-4"><i class="material-icons">checked</i></a></td>
 
             </tr>
         <?php endforeach; ?>

@@ -9,6 +9,9 @@ $(document).ready(function () {
     $('select').formSelect({
         classes: 'white darken-1 white-text '
     });
+    $('#update').click(function () {
+
+    });
 });
 
 /*Custom functions*/

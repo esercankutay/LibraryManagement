@@ -112,14 +112,6 @@
                     <input type="text" placeholder="Soyad" name="ekle-soyad">
                     <input type="text" placeholder="Telefon" name="ekle-tel">
                 </div>
-                <div class="row">
-                    <div class="input-field col">
-                        <select>
-                            <option value="3">Option 3</option>
-                        </select>
-                        <label>Materialize Select</label>
-                    </div>
-                </div>
             </div>
 
             <input type="submit" class="hide" id="kullanici-ekle-submit" name="kullanici-ekle-submit">

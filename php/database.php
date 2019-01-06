@@ -37,21 +37,20 @@ if (isset($_POST['selectmain'])){
     }
     elseif($_POST['selectmain']=='kitap'){$cname='kit_adi';
         $sql = <<<SQL
-SELECT kitap.kit_id, kitap.kit_adi, yazar.yad as yazar , yayinevi.yeviad yayinevi ,kitap.isbn,kitap.basim_yili,kitap.baski_no,kitap.dil,kitap.cilt,kitap.sayfa,kitap.kategori,kitap.durum
-FROM kitap INNER JOIN
+SELECT kitap.kit_id, kitap.kit_adi, yazar.yad as yazar , yayinevi.yeviad as yayinevi ,kitap.isbn,kitap.basim_yili,kitap.baski_no,kitap.dil,kitap.cilt,kitap.sayfa,kitap.kategori,kitap.durum
+FROM kitap WHERE kitap.kit_adi LIKE '%{$_POST['main-search']}%' INNER JOIN
 kitapyayinevi ON kitap.kit_id = kitapyayinevi.kit_id INNER JOIN
 kitapyazar ON kitap.kit_id = kitapyazar.kit_id INNER JOIN
 yayinevi ON kitapyayinevi.yevi_id = yayinevi.yevi_id INNER JOIN
 yazar ON kitapyazar.yazar_id = yazar.yazar_id
 SQL;
     }
-
     $stmt = $connection->query($sql);
     $result = $stmt->fetchAll(PDO::FETCH_OBJ);
 }
 else{
     $sql = <<<SQL
-SELECT kitap.kit_id, kitap.kit_adi, yazar.yad , yayinevi.yeviad ,kitap.isbn,kitap.basim_yili,kitap.baski_no,kitap.dil,kitap.cilt,kitap.sayfa,kitap.kategori,kitap.durum
+SELECT kitap.kit_id, kitap.kit_adi, yazar.yad as yazar , yayinevi.yeviad as yayinevi,kitap.isbn,kitap.basim_yili,kitap.baski_no,kitap.dil,kitap.cilt,kitap.sayfa,kitap.kategori,kitap.durum
 FROM kitap INNER JOIN
 kitapyayinevi ON kitap.kit_id = kitapyayinevi.kit_id INNER JOIN
 kitapyazar ON kitap.kit_id = kitapyazar.kit_id INNER JOIN
@@ -142,10 +141,13 @@ sql;
 }
 
 if (isset($_GET['kul_adi'])&&isset($_GET['kit_id'])&&isset($_GET['alma_tar'])){
+
     $sql = <<<sql
-update kitap
-set iade_tar='now'
-where kul_adi = '{$_GET['kul_adi']}' and kit_id = {$_GET['kit_id']} and alma_tar = '{$_GET['alma_tar']}'
+update kitap,odunc
+set odunc.iade_tar= now(),
+kitap.durum ='rafta'
+where kitap.kit_id = {$_GET['kit_id']} and odunc.alma_tar = '{$_GET['alma_tar']}'
 sql;
-    $connection->query($sql);
+
+    $stmt = $connection->query($sql);
 }

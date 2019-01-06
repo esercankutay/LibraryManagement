@@ -20,19 +20,20 @@
         <img id="book" class="responsive-img center" src="asset/book.svg" alt="book svg">
         <h3 class="center white-text">Kütüphanenizi kolayca yönetin!</h3>
     </div>
-    <div class="row">
-        <div class="col s2 m3 l4"></div>
         <form action="index.php" method="post">
-            <div class="col s4 m6 l4 pull-s2-m2-l2">
-                <input class="white black-text" type="search" name="main-search" placeholder="Ne aramak istersin?">
-                <input type="submit" class="hide">
-            </div>
-            <div class="col s2 m3 l2 ">
-                <select name="selectmain" >
-                    <option value="kitap" selected>Kitaplarda</option>
-                    <option value="kullanici">Kullanıcılarda</option>
-                </select>
+            <div class="row">
+                <div class="col s4 m4 l4"></div>
+                <div class="col s4 m4 l4">
+                    <input class="white black-text" type="search" name="main-search" placeholder="Ne aramak istersin?">
+                    <input type="submit" class="hide">
+                </div>
+                <div class="col s2 m2 l2 pull-s2-m2-l2">
+                    <select name="selectmain" >
+                        <option value="kitap" selected>Kitaplarda</option>
+                        <option value="kullanici">Kullanıcılarda</option>
+                    </select>
+                </div>
+                <div class="col s4 m4 l4"></div>
             </div>
         </form>
-    </div>
 </header>
